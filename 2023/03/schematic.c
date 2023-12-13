@@ -14,24 +14,6 @@ struct field_def *get_field(const struct schematic *sh, int row, int column) {
   return &sh->fields[row * sh->columns + column];
 }
 
-struct field_def *get_field_by_id(const struct schematic *sh, field_id id) {
-  int row;
-  int col;
-  struct field_def *field;
-  if (id == 0) {
-    return NULL;
-  }
-  for (row = 0; row < sh->rows; row++) {
-    for (col = 0; col < sh->columns; col++) {
-      field = get_field(sh, row, col);
-      if (field->id == id) {
-        return field;
-      }
-    }
-  }
-  return NULL;
-}
-
 struct fields_list create_adjacency_list(const struct schematic *sh, int gears) {
   struct fields_list list = { .values = NULL, .n = 0 };
   int col;
@@ -41,7 +23,7 @@ struct fields_list create_adjacency_list(const struct schematic *sh, int gears) 
   int di;
   int dj;
   int present;
-  field_id surroundings[8] = {0};
+  field_def *surroundings[8] = {0};
   int si;
   int surroundings_n = 0;
   int gear_product = 1;
@@ -62,13 +44,13 @@ struct fields_list create_adjacency_list(const struct schematic *sh, int gears) 
             if (near_field && near_field->type == TYPE_NUMBER) {
               present = 0;
               for (si = 0; si < surroundings_n; si++) {
-                if (surroundings[si] == near_field->id) {
+                if (surroundings[si]->id == near_field->id) {
                   present = 1;
                   break;
                 }
               }
               if (!present) {
-                surroundings[surroundings_n++] = near_field->id;
+                surroundings[surroundings_n++] = near_field;
               }
             }
           }
@@ -76,7 +58,7 @@ struct fields_list create_adjacency_list(const struct schematic *sh, int gears) 
 
         /* copy local surroundings to list of values */
         for (si = 0; si < surroundings_n; si++) {
-          near_field = get_field_by_id(sh, surroundings[si]);
+          near_field = surroundings[si];
           if (!gears) {
             list.values[list.n++] = near_field->value;
           } else {
@@ -97,7 +79,6 @@ struct fields_list create_adjacency_list(const struct schematic *sh, int gears) 
 }
 
 void print_adjacency_info(
-  const struct schematic *sh,
   const struct fields_list *list,
   const struct fields_list *gear_list
 ) {
@@ -264,7 +245,7 @@ void print_schematic_info(struct schematic *sh) {
   printf("------------------\n");
   adjacent = create_adjacency_list(sh, 0);
   adjacent_gears = create_adjacency_list(sh, 1);
-  print_adjacency_info(sh, &adjacent, &adjacent_gears);
+  print_adjacency_info(&adjacent, &adjacent_gears);
   free_adjacency_list(&adjacent);
   free_adjacency_list(&adjacent_gears);
 }

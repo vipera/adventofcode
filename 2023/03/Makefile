@@ -3,7 +3,7 @@
 CC = gcc
 IDIR = .
 ODIR = obj
-CFLAGS = -I$(IDIR) -Wall -Wpedantic
+CFLAGS = -I$(IDIR) -Werror -Wall -Wextra -Wpedantic
 
 _DEPS = schematic.h utils.h
 _OBJ = schematic.o utils.o main.o

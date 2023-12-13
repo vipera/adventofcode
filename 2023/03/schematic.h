@@ -35,14 +35,8 @@ typedef struct fields_list {
 } fields_list;
 
 struct field_def *get_field(const struct schematic *sh, int row, int column);
-struct field_def *get_field_by_id(const struct schematic *sh, field_id id);
 
 struct fields_list create_adjacency_list(const struct schematic *sh, int gears);
-void print_adjacency_info(
-  const struct schematic *sh,
-  const struct fields_list *list,
-  const struct fields_list *gear_list
-);
 void free_adjacency_list(struct fields_list *list);
 
 void create_schematic(struct schematic *sh, char *filename);
