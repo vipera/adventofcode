@@ -5,7 +5,7 @@ all:
 clean:
 
 run-example:
-	./possible.pl example.txt
+	@./possible.pl example.txt
 
 run:
-	./possible.pl actual_input.txt
+	@./possible.pl actual_input.txt

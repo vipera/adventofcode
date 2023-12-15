@@ -5,7 +5,7 @@ all:
 clean:
 
 run-example:
-	./scratchcard.escript example.txt
+	@./scratchcard.escript example.txt
 
 run:
-	./scratchcard.escript actual_input.txt
+	@./scratchcard.escript actual_input.txt

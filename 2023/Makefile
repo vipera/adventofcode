@@ -1,25 +1,24 @@
+SUBMAKEFILES = $(shell find . -mindepth 2 -maxdepth 2 -type f -name Makefile -not -path '*/.*' | sort)
+SUBDIRS = $(filter-out ./,$(dir $(SUBMAKEFILES)))
+
 .PHONY: all clean run-example run
 
 all:
-	@+$(MAKE) -s -C 01 all
-	@+$(MAKE) -s -C 02 all
-	@+$(MAKE) -s -C 03 all
-	@+$(MAKE) -s -C 04 all
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir all; \
+	done
 
 clean:
-	@+$(MAKE) -s -C 01 clean
-	@+$(MAKE) -s -C 02 clean
-	@+$(MAKE) -s -C 03 clean
-	@+$(MAKE) -s -C 04 clean
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir clean; \
+	done
 
 run-example:
-	@+$(MAKE) -s -C 01 run-example
-	@+$(MAKE) -s -C 02 run-example
-	@+$(MAKE) -s -C 03 run-example
-	@+$(MAKE) -s -C 04 run-example
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir run-example; \
+	done
 
 run:
-	@+$(MAKE) -s -C 01 run
-	@+$(MAKE) -s -C 02 run
-	@+$(MAKE) -s -C 03 run
-	@+$(MAKE) -s -C 04 run
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir run; \
+	done

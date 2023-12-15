@@ -1,13 +1,24 @@
+SUBMAKEFILES = $(shell find . -mindepth 2 -maxdepth 2 -type f -name Makefile -not -path '*/.*' | sort)
+SUBDIRS = $(filter-out ./,$(dir $(SUBMAKEFILES)))
+
 .PHONY: all clean run-example run
 
 all:
-	@+$(MAKE) -s -C 2023 all
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir all; \
+	done
 
 clean:
-	@+$(MAKE) -s -C 2023 clean
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir clean; \
+	done
 
 run-example:
-	@+$(MAKE) -s -C 2023 run-example
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir run-example; \
+	done
 
 run:
-	@+$(MAKE) -s -C 2023 run
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir run; \
+	done
