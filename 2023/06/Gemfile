@@ -1,0 +1,14 @@
+source 'https://rubygems.org'
+
+ruby '3.2.2'
+
+group :development, :test do
+  # RSpec test framework
+  gem 'rspec', '~> 3.12'
+
+  # Parameterized tests
+  gem 'rspec-parameterized', '~> 1.0'
+
+  # Debug print
+  gem 'awesome_print', '~> 1.9', '>= 1.9.2'
+end
