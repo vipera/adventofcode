@@ -5,20 +5,32 @@ SUBDIRS = $(filter-out ./,$(dir $(SUBMAKEFILES)))
 
 all:
 	@for dir in $(SUBDIRS); do \
+		echo ""; \
+		echo "Entering $$dir"; \
+		echo "--------------------------------------------------------"; \
 		$(MAKE) -C $$dir all; \
 	done
 
 clean:
 	@for dir in $(SUBDIRS); do \
+		echo ""; \
+		echo "Entering $$dir"; \
+		echo "--------------------------------------------------------"; \
 		$(MAKE) -C $$dir clean; \
 	done
 
 run-example:
 	@for dir in $(SUBDIRS); do \
+		echo ""; \
+		echo "Entering $$dir"; \
+		echo "--------------------------------------------------------"; \
 		$(MAKE) -C $$dir run-example; \
 	done
 
 run:
 	@for dir in $(SUBDIRS); do \
+		echo ""; \
+		echo "Entering $$dir"; \
+		echo "--------------------------------------------------------"; \
 		$(MAKE) -C $$dir run; \
 	done
