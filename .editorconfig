@@ -3,7 +3,7 @@
 # top-most EditorConfig file
 root = true
 
-[*.{pl,pm,c,h,escript,rb}]
+[*.{pl,pm,c,h,escript,rb,rs}]
 indent_style = space
 indent_size = 2
 end_of_line = lf
