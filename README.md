@@ -12,6 +12,7 @@ Used these puzzles as an opportunity to try out Clojure.
 
 - [Day 01](/2025/01/)
 - [Day 02](/2025/02/)
+- [Day 03](/2025/03/)
 
 ## 2024
 
